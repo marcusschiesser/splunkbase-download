@@ -15,6 +15,11 @@ chmod +x ./splunkbase-download.py
 
 Call then `./splunkbase-download.py` to get help how to use the script.
 
+If needed, install the requirements:
+```
+pip install $(curl -s https://raw.githubusercontent.com/marcusschiesser/splunkbase-download/main/requirements.txt)
+```
+
 ## Disclaimer
 
 This utility uses a service provided by Splunk. Please read the following prior to use:
