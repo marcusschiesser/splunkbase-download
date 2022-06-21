@@ -65,5 +65,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     app_def = args.app.split('-')
     if len(app_def) != 2:
-        raise ValueError('{app} - definition for the app to download must be in the format {app_id}-{version}')
+        raise ValueError(f'{args.app} - definition for the app to download must be in the format {{app_id}}-{{version}}')
     download(args.username, args.password, app_id=app_def[0], version=app_def[1])
