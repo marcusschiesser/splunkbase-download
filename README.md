@@ -10,10 +10,10 @@ which unfortunately isn't working anymore with `sid` and `SSOID` authentication 
 Simply download the script and make it executable:
 ```
 wget https://raw.githubusercontent.com/marcusschiesser/splunkbase-download/main/download-splunkbase.py
-chmod +x ./splunkbase-download.py
+chmod +x ./download-splunkbase.py
 ```
 
-Call then `./splunkbase-download.py` to get help how to use the script.
+Call then `./download-splunkbase.py` to get help how to use the script.
 
 If needed, install the requirements:
 ```

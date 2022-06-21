@@ -34,6 +34,7 @@ def submit_form(session, form):
 
 
 def download(username, password, app_id, version):
+    print(f'Downloading app with id {app_id} version {version}...')
     url = f'https://splunkbase.splunk.com/app/{app_id}/release/{version}/download'
     urlauth = 'https://account.splunk.com/api/v1/okta/auth'
     session = requests.session()
@@ -60,7 +61,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('username', help='Splunkbase username')
     parser.add_argument('password', help='Splunkbase password')
-    parser.add_argument('app_id', help='ID of application to download')
-    parser.add_argument('version', help='Version of application to download')
+    parser.add_argument('app', help='Application to download in the format {app_id}-{version}')
     args = parser.parse_args()
-    download(args.username, args.password, args.app_id, args.version)
+    app_def = args.app.split('-')
+    if len(app_def) != 2:
+        raise ValueError('Definition for the app to download must be in the format {app_id}-{version}')
+    download(args.username, args.password, app_id=app_def[0], version=app_def[1])
