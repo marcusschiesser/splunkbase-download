@@ -89,12 +89,19 @@ def splunk_login(session, username, password):
     BASE_AUTH_URL = "https://login.splunk.com/api/v2/auth/okta-login"
     headers = {"accept": "*/*", "Content-Type": "application/json"}
 
-    csrf = (json.loads((session.get(CSRF_BASE_URL, headers=headers)).text))["_csrf"]
+    try:
+        csrf = (json.loads((session.get(CSRF_BASE_URL, headers=headers)).text))["_csrf"]
 
-    data = {"username": username, "password": password, "_csrf": csrf}
+        data = {"username": username, "password": password, "_csrf": csrf}
 
-    auth = session.post(BASE_AUTH_URL, json=data, headers=headers, allow_redirects=True)
-    return auth
+        auth = session.post(BASE_AUTH_URL, json=data, headers=headers, allow_redirects=True)
+        return auth
+    except json.decoder.JSONDecodeError:
+        print("Unable to authenticate - error", session.get(CSRF_BASE_URL, headers=headers).status_code)
+        exit(1)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        exit(1)
 
 
 def tgz_download(username, password, splunkbase_num, version):
